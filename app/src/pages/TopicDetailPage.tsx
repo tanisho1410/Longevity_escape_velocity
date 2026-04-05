@@ -71,14 +71,22 @@ export const TopicDetailPage: React.FC = () => {
   }
 
   const handleAiSummary = async () => {
+    // ★★★ [1] APIキーの読み込み場所 ★★★
+    // ブラウザの保存領域（localStorage）または入力フォームからキーを取得します
     const key = apiKey || localStorage.getItem('openai_key') || '';
+
+    // ★★★ [2] キーがない場合の処理 ★★★
+    // キーが空の場合、ユーザーに入力フォームを表示して処理を中断します
     if (!key) {
       setShowKeyInput(true);
       return;
     }
+
     setAiLoading(true);
     setAiSummary('');
     try {
+      // ★★★ [3] OpenAI API へのリクエスト送信 ★★★
+      // ここで Authorization ヘッダーに APIキー（key）をセットして通信します
       const response = await fetch('https://api.openai.com/v1/chat/completions', {
         method: 'POST',
         headers: {
@@ -105,6 +113,9 @@ export const TopicDetailPage: React.FC = () => {
       if (data.error) throw new Error(data.error.message);
       const text = data.choices?.[0]?.message?.content || '';
       setAiSummary(text);
+
+      // ★★★ [4] 入力されたキーの保存 ★★★
+      // 入力されたキーをブラウザに保存し、次回から入力を不要にします
       if (apiKey) localStorage.setItem('openai_key', apiKey);
     } catch (err: any) {
       setAiSummary(`エラーが発生しました：${err.message}`);
