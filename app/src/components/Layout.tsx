@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { LayoutDashboard, Calendar, BookOpen, User, LogOut, Dna } from 'lucide-react';
 import { useApp } from '../context/AppContext';

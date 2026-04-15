@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Save, CheckCircle, X } from 'lucide-react';
+import { Save, CheckCircle } from 'lucide-react';
 import { useApp } from '../context/AppContext';
 import { events } from '../data/mockData';
 
